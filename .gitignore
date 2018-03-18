@@ -1,6 +1,11 @@
 target
 .metadata
 .recommenders
+# Misc JBDS files 
+.project
+.settings
+.tern-project
+.classpath
 
 # Compiled class file
 *.class
