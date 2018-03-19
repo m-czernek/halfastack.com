@@ -4,8 +4,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import com.halfastack.db.BookDB;
-
 @RequestScoped
 @Named
 public class FacesController {
