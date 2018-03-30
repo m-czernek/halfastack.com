@@ -1,0 +1,8 @@
+<datasource jta="true" jndi-name="java:/jboss/BookDB" pool-name="BookDB" enabled="true" use-ccm="false">
+  <connection-url>jdbc:hsqldb:hsql://localhost/bookDb</connection-url>
+  <driver-class>org.hsqldb.jdbc.JDBCDriver</driver-class>
+  <driver>hsqldb.jar</driver>
+  <security>
+    <user-name>sa</user-name>
+  </security>
+</datasource>

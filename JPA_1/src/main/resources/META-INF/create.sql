@@ -1,0 +1,1 @@
+CREATE TABLE LIBRARY ("ID" INTEGER not null primary key, "TITLE" VARCHAR(50) not null, "AUTHOR" VARCHAR(50) not null, "AVAILABLE" BOOLEAN not null);

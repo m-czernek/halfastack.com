@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+    		<h1>Library app</h1>
+    		<h:form>
+    			<p>Please enter a book name or author</p>
+			<h:inputText value="#{facesController.name}"/>
+			<h:selectOneRadio value="#{facesController.method}">
+   				<f:selectItem itemValue="author" itemLabel="By author" />
+   				<f:selectItem itemValue="title" itemLabel="By title" />
+			</h:selectOneRadio>
+			 <h:commandButton action="#{facesController.find()}" value="Find" />
+    		</h:form>
+    		<br/>
+    		<h:outputText value="#{facesController.result}" />
+    </body>
+</html>
