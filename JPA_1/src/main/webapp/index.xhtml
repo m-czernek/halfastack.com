@@ -16,6 +16,15 @@
 			 <h:commandButton action="#{facesController.find()}" value="Find" />
     		</h:form>
     		<br/>
-    		<h:outputText value="#{facesController.result}" />
+    		
+    		<!-- This needs to be in a separate xhtml file -->
+    		<h:dataTable value="#{facesController.books}" var="book" rendered="#{not empty facesController.books}">
+		    <h:column>
+		    	    <f:param name="id" value="#{book.id}" />
+		        <!-- <h:link value="#{book.title}" outcome="book">
+		            <f:param name="id" value="#{book.id}" />
+		        </h:link> -->
+		    </h:column>
+		</h:dataTable>
     </body>
 </html>
