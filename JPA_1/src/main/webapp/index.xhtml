@@ -8,23 +8,30 @@
     		<h1>Library app</h1>
     		<h:form>
     			<p>Please enter a book name or author</p>
-			<h:inputText value="#{facesController.name}"/>
-			<h:selectOneRadio value="#{facesController.method}">
+			<h:inputText id="name" value="#{facesController.name}"/>
+			<h:message for="name" />
+			
+			<h:selectOneRadio id="method" value="#{facesController.method}">
    				<f:selectItem itemValue="author" itemLabel="By author" />
    				<f:selectItem itemValue="title" itemLabel="By title" />
 			</h:selectOneRadio>
-			 <h:commandButton action="#{facesController.find()}" value="Find" />
+			<h:message for="method" />
+			<br/>
+			<h:commandButton action="#{facesController.find()}" value="Find" />
     		</h:form>
     		<br/>
-    		
-    		<!-- This needs to be in a separate xhtml file -->
-    		<h:dataTable value="#{facesController.books}" var="book" rendered="#{not empty facesController.books}">
-		    <h:column>
-		    	    <f:param name="id" value="#{book.id}" />
-		        <!-- <h:link value="#{book.title}" outcome="book">
-		            <f:param name="id" value="#{book.id}" />
-		        </h:link> -->
-		    </h:column>
-		</h:dataTable>
-    </body>
+
+		<ul>
+			<ui:repeat value="#{facesController.books}" var="book">
+				<li> Author: #{book.author}</li>
+				<li>Title: #{book.title}</li>
+				<li>Is available: #{book.available ? 'Yes' : 'No'}</li>
+				<br/>
+			</ui:repeat>
+		</ul>
+		
+		<h:panelGroup rendered="#{empty facesController.books}">
+    			<p>#{facesController.result}</p>
+		</h:panelGroup>
+</body>
 </html>
