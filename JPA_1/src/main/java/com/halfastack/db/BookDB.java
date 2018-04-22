@@ -15,28 +15,27 @@ import com.halfastack.entities.Book;
 
 @Singleton
 public class BookDB {
-
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@PersistenceContext
 	EntityManager em;
 	
 	
-	public List<Book> find(String name, String method) {
+	public List<Book> find(String firstName, String surname, String method) {
 		switch(method) {
 			case "author":
-				return findByAuthor(name);
+				return findByAuthor(firstName, surname);
 			case "title":
-				return findByTitle(name);
+				//return findByTitle(name);
 			default:
 				return Collections.emptyList();
 		}
 	}
 	
 	
-	public List<Book> findByAuthor(String name) {
-		TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b WHERE lower(b.author) LIKE CONCAT('%',?1,'%')", Book.class);
-		query.setParameter(1, name.toLowerCase());
+	public List<Book> findByAuthor(String firstName, String surname) {
+		TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b WHERE (lower(b.author.firstName) LIKE CONCAT('%',?1,'%')) AND (lower(b.author.surname) LIKE CONCAT('%',?2,'%') )", Book.class);
+		query.setParameter(1, firstName.toLowerCase());
+		query.setParameter(2, surname.toLowerCase());
 		return query.getResultList();
 	}
 	

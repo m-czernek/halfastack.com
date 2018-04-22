@@ -18,8 +18,11 @@ import com.halfastack.entities.Book;
 @RequestScoped
 public class FacesController  {
 	
-	@NotNull(message="Please enter an Author or a book title")
-	private String name;
+	@NotNull(message="Please enter an author's first name")
+	private String firstName;
+	
+	@NotNull(message="Please enter an author's surname")
+	private String surname;
 	private String result;
 	@NotNull(message="Please choose a method")
 	private String method;
@@ -38,19 +41,32 @@ public class FacesController  {
 	Conversation conversation;
 	
 	public void find() {
-		books = controller.find(name, method);
+		books = controller.find(firstName, surname, method);
 		log.info("Setting books: {}", books);
 		result = books.size() > 0 ? "" : "Your book/author was not found. Try a different one.";
 	}
 	
-	public String getName() {
-		return name;
+	
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	
+
+
+	public String getSurname() {
+		return surname;
+	}
+
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+
 	public String getResult() {
 		return result;
 	}
