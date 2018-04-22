@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -18,16 +19,14 @@ import com.halfastack.entities.Book;
 @RequestScoped
 public class FacesController  {
 	
-	@NotNull(message="Please enter an author's first name")
 	private String firstName;
-	
-	@NotNull(message="Please enter an author's surname")
 	private String surname;
 	private String result;
 	@NotNull(message="Please choose a method")
 	private String method;
 	private List<Book> books;
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private String title;
 
 	public FacesController() {
 		result = "";
@@ -45,7 +44,6 @@ public class FacesController  {
 		log.info("Setting books: {}", books);
 		result = books.size() > 0 ? "" : "Your book/author was not found. Try a different one.";
 	}
-	
 	
 	public String getFirstName() {
 		return firstName;
@@ -81,5 +79,15 @@ public class FacesController  {
 
 	public List<Book> getBooks() {
 		return books;
+	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

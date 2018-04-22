@@ -2,28 +2,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 	<head>
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-		<link type="text/javascript" href="js/bootstrap.js"/>
+		<link href="css/custom.css" rel="stylesheet" type="text/css"/>
 	</head> 
     <body>
+    	<div class="container-fluid"> 
     		<h1>Library app</h1>
     		<h:form>
-    			<p>Please enter a book name or author</p>
-			<h:inputText id="firstName" value="#{facesController.firstName}"/>
-			<h:message for="firstName" />
-			
-			<h:inputText id="surname" value="#{facesController.surname}"/>
-			<h:message for="surname" />
-			
-			<h:selectOneRadio id="method" value="#{facesController.method}">
-   				<f:selectItem itemValue="author" itemLabel="By author" />
-   				<f:selectItem itemValue="title" itemLabel="By title" />
-			</h:selectOneRadio>
-			<h:message for="method" />
+    			<p>Please enter the book author's name</p>
+    			<div class="row" style="margin-bottom: 20px;">
+    				<div class="col-sm-4">
+					<h:inputText type="text" class="form-control" a:placeholder="Enter first name" id="firstName" value="#{facesController.firstName}"/>
+					<h:message for="firstName" />
+				</div>
+				<div class="col-sm-4">
+					<h:inputText  type="text" class="form-control" a:placeholder="Enter surname" id="surname" value="#{facesController.surname}"/>
+					<h:message for="surname" />
+				</div>
+			</div>
+			<p>Or enter the title of the book</p>
+			<div class="row" style="margin-bottom: 20px;">
+				<div class="col-sm-4">
+					<h:inputText  type="text" class="form-control" a:placeholder="Enter book title" id="title" value="#{facesController.title}"/>
+					<h:message for="title" />
+				</div>
+			</div>
+			<div class="space-inputs">
+				<h:selectOneRadio id="method" value="#{facesController.method}">
+	   				<f:selectItem itemValue="author" itemLabel="By author" />
+	   				<f:selectItem itemValue="title" itemLabel="By title" />
+				</h:selectOneRadio>
+			</div>
+			<h:message for="method" errorClass="label label-danger" />
 			<br/>
-			<h:commandButton action="#{facesController.find()}" value="Find" />
+			
+			<h:commandButton action="#{facesController.find()}" value="Find" class="btn btn-primary btn-lg" style="margin-top: 20px;" />
     		</h:form>
     		<br/>
 
@@ -39,5 +55,6 @@
 		<h:panelGroup rendered="#{empty facesController.books}">
     			<p>#{facesController.result}</p>
 		</h:panelGroup>
+		</div>
 </body>
 </html>
