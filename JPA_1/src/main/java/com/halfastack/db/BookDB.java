@@ -20,12 +20,12 @@ public class BookDB {
 	EntityManager em;
 	
 	
-	public List<Book> find(String firstName, String surname, String method) {
+	public List<Book> find(String firstName, String surname, String title, String method) {
 		switch(method) {
 			case "author":
 				return findByAuthor(firstName, surname);
 			case "title":
-				//return findByTitle(name);
+				return findByTitle(title);
 			default:
 				return Collections.emptyList();
 		}

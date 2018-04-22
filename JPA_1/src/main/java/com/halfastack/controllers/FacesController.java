@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -40,7 +39,7 @@ public class FacesController  {
 	Conversation conversation;
 	
 	public void find() {
-		books = controller.find(firstName, surname, method);
+		books = controller.find(firstName, surname, title, method);
 		log.info("Setting books: {}", books);
 		result = books.size() > 0 ? "" : "Your book/author was not found. Try a different one.";
 	}
