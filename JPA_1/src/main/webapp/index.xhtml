@@ -9,28 +9,29 @@
 		<link href="css/custom.css" rel="stylesheet" type="text/css"/>
 	</head> 
     <body>
+    <div class="jumbotron" style="height: 100%; text-align: center;">
     	<div class="container-fluid"> 
     		<h1>Library app</h1>
     		<h:form>
     			<p>Please enter the book author's name</p>
     			<div class="row" style="margin-bottom: 20px;">
-    				<div class="col-sm-4">
-					<h:inputText type="text" class="form-control" a:placeholder="Enter first name" id="firstName" value="#{facesController.firstName}"/>
+    				<div class="centered">
+					<h:inputText class="form-control" a:placeholder="Enter first name" id="firstName" value="#{facesController.firstName}"/>
 					<h:message for="firstName" />
 				</div>
-				<div class="col-sm-4">
-					<h:inputText  type="text" class="form-control" a:placeholder="Enter surname" id="surname" value="#{facesController.surname}"/>
+				<div class="centered">
+					<h:inputText class="form-control" a:placeholder="Enter surname" id="surname" value="#{facesController.surname}"/>
 					<h:message for="surname" />
 				</div>
 			</div>
 			<p>Or enter the title of the book</p>
 			<div class="row" style="margin-bottom: 20px;">
-				<div class="col-sm-4">
+				<div class="centered">
 					<h:inputText  type="text" class="form-control" a:placeholder="Enter book title" id="title" value="#{facesController.title}"/>
 					<h:message for="title" />
 				</div>
 			</div>
-			<div class="space-inputs">
+			<div class="space-inputs centered-table">
 				<h:selectOneRadio id="method" value="#{facesController.method}">
 	   				<f:selectItem itemValue="author" itemLabel="By author" />
 	   				<f:selectItem itemValue="title" itemLabel="By title" />
@@ -42,19 +43,22 @@
 			<h:commandButton action="#{facesController.find()}" value="Find" class="btn btn-primary btn-lg" style="margin-top: 20px;" />
     		</h:form>
     		<br/>
-
-		<ul>
-			<ui:repeat value="#{facesController.books}" var="book">
-				<li> Author: #{book.author.firstName}</li>
-				<li>Title: #{book.title}</li>
-				<li>Is available: #{book.available ? 'Yes' : 'No'}</li>
-				<br/>
-			</ui:repeat>
-		</ul>
+	
+		<div class="centered">
+			<ul style="text-align: left">
+				<ui:repeat value="#{facesController.books}" var="book">
+					<li> Author: #{book.author.surname}, #{book.author.firstName}</li>
+					<li>Title: #{book.title}</li>
+					<li>Is available: #{book.available ? 'Yes' : 'No'}</li>
+					<br/>
+				</ui:repeat>
+			</ul>
+		</div>
 		
 		<h:panelGroup rendered="#{empty facesController.books}">
     			<p>#{facesController.result}</p>
 		</h:panelGroup>
+		</div>
 		</div>
 </body>
 </html>
