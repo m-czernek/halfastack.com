@@ -8,6 +8,10 @@ that utilizes:
 * Hibernate and JPA
 * JPA annotations and mappings
 * SQL
+* Faces
+
+![Library app example](imgs/library.png)
+
 
 ## Target Audience
 
