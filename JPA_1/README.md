@@ -50,4 +50,4 @@ and access `localhost:8080/JPA_I` (if your server runs on a different address or
 
 ## Authors
 
-* **Marek Czernek** - [halfastack author](www.halfastack.com)
+* **Marek Czernek** - halfastack author; find me at www.halfastack.com
