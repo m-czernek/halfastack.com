@@ -1,6 +1,6 @@
 # Getting started with Java EE
 
-This is the first practical example of EJB series published on [halfastack.com](www.halfastack.com) aimed at
+This is the first practical example of EJB series published on www.halfastack.com aimed at
 developers with little to none experience with JEE.
 
 Technologies used in this project:
@@ -49,4 +49,4 @@ and access `localhost:8080/EJB_I` (if your server runs on a different address or
 
 ## Authors
 
-* **Marek Czernek** - [halfastack author](www.halfastack.com)
+* **Marek Czernek** - halfastack author; find me at www.halfastack.com
