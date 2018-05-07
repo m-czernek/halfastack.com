@@ -2,25 +2,28 @@ package com.halfastack.rest;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.halfastack.entities.Author;
+import com.halfastack.entities.Book;
 
 @Path("/authors")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RequestScoped
+@Stateless
 public class AuthorEntityRestService {
 	
 	@PersistenceContext
@@ -56,6 +59,40 @@ public class AuthorEntityRestService {
 		q.setParameter(2, secondName.toLowerCase());
 		return q.getResultList();
 	}
+	
+	/**
+	 *  Gets author by its ID (database PK)
+	 * @param id The primary key
+	 * @return Author object
+	 */
+	@GET
+	@Path("/getAuthorById/{id:[0-9+]}")
+	public Author getAuthorById(@PathParam("id") long id) {
+		TypedQuery<Author> q = em.createQuery("SELECT a from Author a JOIN FETCH a.books"
+				+ " WHERE a.id = ?1",Author.class);
+		q.setParameter(1, id);
+		return q.getSingleResult();
+	}
+	
+	/**
+	 * Deletes author by ID (database PK)
+	 * @param id The primary key
+	 */
+	@DELETE
+	@Path("/deleteAuthor/{id:[0-9+]}")
+	public void deleteAuthor(@PathParam("id") long id) {
+		Author author = em.find(Author.class, id);
+		for(Book book : author.getBooks()) {
+			// Book can have only one author; we remove it since each entity 
+			// belongs to strictly one author
+			em.remove(book);
+		}
+		// Author is safe to be removed now, our DB is consistent
+		em.remove(author);
+	}
+	
+	
+	
 	
 	
 }
