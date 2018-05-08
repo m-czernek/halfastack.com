@@ -28,7 +28,7 @@ import com.halfastack.entities.Book;
 @Stateless
 public class AuthorEntityRestService {
 	
-	@PersistenceContext(name="primary")
+	@PersistenceContext
 	EntityManager em;
 
 	
