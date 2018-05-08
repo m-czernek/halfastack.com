@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -11,6 +12,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,7 +28,7 @@ import com.halfastack.entities.Book;
 @Stateless
 public class AuthorEntityRestService {
 	
-	@PersistenceContext
+	@PersistenceContext(name="primary")
 	EntityManager em;
 
 	
@@ -71,7 +73,19 @@ public class AuthorEntityRestService {
 		TypedQuery<Author> q = em.createQuery("SELECT a from Author a JOIN FETCH a.books"
 				+ " WHERE a.id = ?1",Author.class);
 		q.setParameter(1, id);
-		return q.getSingleResult();
+		Author result;
+		try {
+			result = q.getSingleResult();
+		} catch (NoResultException e) {
+			result = null;
+		}
+		return result;
+	}
+	
+	@POST
+	@Path("/createAuthor")
+	public void createAuthor(Author author) {
+		em.persist(author);
 	}
 	
 	/**

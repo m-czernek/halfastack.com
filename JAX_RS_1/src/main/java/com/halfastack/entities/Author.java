@@ -1,5 +1,6 @@
 package com.halfastack.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -54,6 +55,9 @@ public class Author {
 	}
 
 	public List<Book> getBooks() {
+		if(this.books == null) {
+			this.books = new ArrayList<>();
+		}
 		return books;
 	}
 
