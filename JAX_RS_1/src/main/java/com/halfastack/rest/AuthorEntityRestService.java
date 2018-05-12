@@ -13,6 +13,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,6 +35,7 @@ public class AuthorEntityRestService {
 	
 	/**
 	 * Get all author names saved in the database
+	 * 
 	 * @return A JSON array of names
 	 */
 	@GET
@@ -45,6 +47,7 @@ public class AuthorEntityRestService {
 	
 	/**
 	 * Get all author information by name. Partial matching is supported, e.g. Ant will match Anthony, antony, or Mantis
+	 * 
 	 * @param firstName First name of the author. Default value is an empty string (all authors with any first name)
 	 * @param secondName Surname of the author. Default value is an empty string (all authors with any surname)
 	 * @return List of authors
@@ -63,7 +66,8 @@ public class AuthorEntityRestService {
 	}
 	
 	/**
-	 *  Gets author by its ID (database PK)
+	 * Gets author by its ID (database PK)
+	 * 
 	 * @param id The primary key
 	 * @return Author object
 	 */
@@ -82,6 +86,14 @@ public class AuthorEntityRestService {
 		return result;
 	}
 	
+	/**
+	 *  Creates a new Author entity and saves it into the Database. Note that 
+	 *  this Author entity has no books associated with it; as a consequence,
+	 *  it will not appear in any call that fetches the book list if no Book
+	 *  entity has been assigned to it.
+	 *  
+	 * @param author The Author entity to save
+	 */
 	@POST
 	@Path("/createAuthor")
 	public void createAuthor(Author author) {
@@ -89,7 +101,22 @@ public class AuthorEntityRestService {
 	}
 	
 	/**
+	 *  Updates an Author entity and saves it into the Database. Note that 
+	 *  if this Author entity does not exist, it will be created
+	 *  
+	 * @param author The Author entity that will update an old entity, or create
+	 *  a new one
+	 */
+	@PUT
+	@Path("/updateAuthor")
+	public void updateAuthor(Author author) {
+		em.merge(author);
+	}
+	
+	
+	/**
 	 * Deletes author by ID (database PK)
+	 * 
 	 * @param id The primary key
 	 */
 	@DELETE
