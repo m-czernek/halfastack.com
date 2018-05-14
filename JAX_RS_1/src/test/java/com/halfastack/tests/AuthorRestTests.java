@@ -2,6 +2,8 @@ package com.halfastack.tests;
 
 import org.assertj.core.api.Assertions;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -48,10 +50,36 @@ public class AuthorRestTests  {
 	public void testGetAuthors() {
 		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/getAuthors";
 		WebTarget target = client.target(targetEndpoint);
-	    String response = target.request().get().readEntity(String.class);
+	    List<String> response = target.request().get(List.class);
 	    Assertions.assertThat(response)
 	    	.as("Response did not contain author Amy Chua")
-	    	.contains("Amy Chua");
+	    	.contains("Amy Chua")
+	    	.as("Response did not contain Kazuo Ishiguro")
+	    	.contains("Kazuo Ishiguro");
+	}
+	
+	@Test(timeout=1000l)
+	public void testGetAuthorByName() {
+		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/getAuthorByName";
+		WebTarget target = client.target(targetEndpoint)
+				.queryParam("firstName", "Amy")
+				.queryParam("secondName", "Chua");
+		
+		try {
+			List<Map<String, Object>> authors = target.request().get(List.class);
+			Map<String, Object> amy = authors.get(0);
+			
+			Assertions.assertThat(amy.get("firstName"))
+				.as("We expect the first Name to be Amy")
+				.isEqualTo("Amy");
+			Assertions.assertThat(amy.get("surname"))
+				.as("We expect surname to be Chua")
+				.isEqualTo("Chua");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assertions.fail("Return type was not a list of maps that map to an author entity");
+		}
 	}
 	
 }
