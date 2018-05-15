@@ -7,13 +7,17 @@ import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.halfastack.entities.Author;
 
 
 public class AuthorRestTests  {
@@ -46,7 +50,6 @@ public class AuthorRestTests  {
 		}
 	}
 	
-	@Test(timeout=1000l)
 	public void testGetAuthors() {
 		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/getAuthors";
 		WebTarget target = client.target(targetEndpoint);
@@ -58,7 +61,7 @@ public class AuthorRestTests  {
 	    	.contains("Kazuo Ishiguro");
 	}
 	
-	@Test(timeout=1000l)
+	//@Test(timeout=1000l)
 	public void testGetAuthorByName() {
 		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/getAuthorByName";
 		WebTarget target = client.target(targetEndpoint)
@@ -80,6 +83,63 @@ public class AuthorRestTests  {
 			e.printStackTrace();
 			Assertions.fail("Return type was not a list of maps that map to an author entity");
 		}
+	}
+	
+	//@Test(timeout = 1000l)
+	public void testCreateAuthor() {
+		Author author = new Author();
+		author.setFirstName("Lady");
+		author.setSurname("May");
+		
+		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/createAuthor";
+		WebTarget target = client.target(targetEndpoint);
+		target.request().post(Entity.entity(author, MediaType.APPLICATION_JSON));
+		
+		targetEndpoint = ENDPOINT_APP_BASE+"/authors/getAuthors";
+		target = client.target(targetEndpoint);
+	    List<String> response = target.request().get(List.class);
+	    Assertions.assertThat(response)
+	    	.as("Our new entity Lady May was not correctly saved into the database")
+	    	.contains("Lady May");
+		
+	}
+	
+	//@Test(timeout=1000l)
+	public void testUpdateAuthor() {
+		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/getAuthorById/1";
+		WebTarget target = client.target(targetEndpoint);
+		Author mariko = null;
+		
+		try {
+			mariko = target.request().get(Author.class);
+			
+			Assertions.assertThat(mariko.getFirstName())
+				.as("We expect the first Name to be Mariko")
+				.isEqualTo("Mariko");
+			Assertions.assertThat(mariko.getSurname())
+				.as("We expect surname to be Koike")
+				.isEqualTo("Koike");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assertions.fail("Return type was not an author entity");
+		}
+		
+		mariko.setSurname("Tamaki");
+		String targetEndpointUpdate = ENDPOINT_APP_BASE+"/authors/updateAuthor";
+		WebTarget targetUpdate = client.target(targetEndpointUpdate);
+		targetUpdate.request().put(Entity.entity(mariko, MediaType.APPLICATION_JSON));
+		
+		Author updatedMariko = target.request().get(Author.class);
+		Assertions.assertThat(updatedMariko.getSurname())
+			.isEqualTo("Tamaki");
+	}
+	
+	//@Test(timeout=1000l)
+	public void testDeleteAuthor() {
+		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/deleteAuthor/1";
+		WebTarget target = client.target(targetEndpoint);
+		target.request().delete();
 	}
 	
 }
