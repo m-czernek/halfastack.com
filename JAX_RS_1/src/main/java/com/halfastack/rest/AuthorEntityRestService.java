@@ -31,7 +31,6 @@ public class AuthorEntityRestService {
 	
 	@PersistenceContext
 	EntityManager em;
-
 	
 	/**
 	 * Get all author names saved in the database
@@ -132,7 +131,11 @@ public class AuthorEntityRestService {
 		em.remove(author);
 	}
 	
-	
+	@GET
+	@Path("getLastAuthorId")
+	public Long getLastAuthorId() {
+		return em.createQuery("SELECT max(a.id) FROM Author a", Long.class).getSingleResult();
+	}
 	
 	
 	
