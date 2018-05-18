@@ -12,6 +12,8 @@ frontend technologies though that is not the main focus of this project.
 This project demonstrates the ability to expose methods on specified endpoints, as well as consuming the methods using 
 the Resteasy client. 
 
+![Example of an endpoint returning results](imgs/rest_example.png)
+
 ## Target Audience
 
 The target audience is you. I have no requirements, everything here is free and readily available to everyone. 
