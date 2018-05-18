@@ -6,7 +6,7 @@ The following is a project focused on exploring the JAX-RX specification. I have
 * Jackson
 * AssertJ
 
-In addition, I have used technologies from the previous project, halfastack.com/JPA_I, namely Hibernate and 
+In addition, I have used technologies from the previous project, [halfastack.com/JPA_1](../JPA_1), namely Hibernate and 
 frontend technologies though that is not the main focus of this project. 
 
 This project demonstrates the ability to expose methods on specified endpoints, as well as consuming the methods using 
