@@ -105,7 +105,6 @@ public class AuthorRestTests  {
 		String targetEndpoint = ENDPOINT_APP_BASE+"/authors/getAuthors";
 		WebTarget target = client.target(targetEndpoint);
 	    List<String> response = target.request().get(List.class);
-	    log.warn("{}", response);
 	    return response.contains(name);
 	}
 	
