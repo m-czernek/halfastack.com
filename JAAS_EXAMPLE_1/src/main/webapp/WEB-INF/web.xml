@@ -1,0 +1,33 @@
+<web-app 
+    version="3.1" 
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+	  <param-name>resteasy.role.based.security</param-name>
+	  <param-value>true</param-value>
+	</context-param>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Hello JAAS</web-resource-name>
+			<url-pattern>/api/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>developer</role-name>
+			<role-name>guest</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<!-- Defining valid roles for our example -->
+	<security-role>
+		<role-name>developer</role-name>
+	</security-role>
+	<security-role>
+		<role-name>guest</role-name>
+	</security-role>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>ApplicationRealm</realm-name>
+	</login-config>
+</web-app>
