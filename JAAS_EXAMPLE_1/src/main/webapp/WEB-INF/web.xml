@@ -8,11 +8,17 @@
 	  <param-value>true</param-value>
 	</context-param>
 	
+	<!-- Start of security constraint definition -->
 	<security-constraint>
+		<!-- Define which URL pattern should be protected -->
 		<web-resource-collection>
 			<web-resource-name>Hello JAAS</web-resource-name>
+			<!-- everything behind /api/ will be protected. For example,
+			localhost:8080/helloWorld/api/getName.
+			However, localhost:8080/helloWorld would not be protected. -->
 			<url-pattern>/api/*</url-pattern>
 		</web-resource-collection>
+		<!-- Define roles which are authorized to enter -->
 		<auth-constraint>
 			<role-name>developer</role-name>
 			<role-name>guest</role-name>
