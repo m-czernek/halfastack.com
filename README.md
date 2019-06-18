@@ -4,5 +4,5 @@ This is the halfastack.com project's github repository. It serves as a one-stop 
 Its motivation is to teach inexperienced developers the very basics of Java EE, to spread the knowledge around 
 some great technologies (for example Hibernate) etc. 
 
-Please visit www.halfastack.com for more information and for some background information about the projects,
+Please visit www.halfastack.info for more information and for some background information about the projects,
 or just feel free to browse and deploy. 
